@@ -36,11 +36,35 @@ function operation(operator,firstNumber,nextNumber) {
     }
 }
 
-const buttonNumbers = document.querySelectorAll(".number");
 
 for (let i  = 0; i <= 9 ; i++) {
     let button = document.getElementById(i);
     button.addEventListener("click", ()=> {
-        display.textContent = i;
+        display.textContent += i;
     })
 }
+
+const dot = document.getElementById(".");
+const plus = document.getElementById("+");
+const minus = document.getElementById("-");
+const div = document.getElementById("/");
+const multipl= document.getElementById("*");
+
+
+
+dot.addEventListener("click",(e) => {
+    display.textContent += e.target.textContent;
+})  
+
+plus.addEventListener("click",(e) => {
+    display.textContent += ' ' +e.target.textContent +' '
+});
+minus.addEventListener("click",(e) => {
+    display.textContent += ' ' +e.target.textContent +' '
+});
+div.addEventListener("click",(e) => {
+    display.textContent += ' ' +e.target.textContent +' '
+});
+multipl.addEventListener("click",(e) => {
+    display.textContent += ' ' +e.target.textContent +' '
+});
