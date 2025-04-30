@@ -1,3 +1,5 @@
+const display = document.querySelector("#values");
+
 function add(...numbers) {
     return numbers.reduce((total,val) => total+val,0);
 }
@@ -32,4 +34,13 @@ function operation(operator,firstNumber,nextNumber) {
             alert("Not a valid operator!");
 
     }
+}
+
+const buttonNumbers = document.querySelectorAll(".number");
+
+for (let i  = 0; i <= 9 ; i++) {
+    let button = document.getElementById(i);
+    button.addEventListener("click", ()=> {
+        display.textContent = i;
+    })
 }

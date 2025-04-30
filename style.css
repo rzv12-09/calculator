@@ -28,3 +28,9 @@ button {
     min-width: 5vw;
     flex-grow: 1;
 }
+
+#display {
+    padding: 30px;
+    border: 2px solid black;
+    
+}
