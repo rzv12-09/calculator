@@ -19,6 +19,7 @@ function divide(...numbers){
 let firstNumber = undefined;
 let operator = undefined;
 let nextNumber = undefined;
+let isOperatorClicked = false;
 
 function operation(operator,firstNumber,nextNumber) {
     switch (operator){
@@ -36,18 +37,24 @@ function operation(operator,firstNumber,nextNumber) {
     }
 }
 
+function getNumberFromDisplay(display) {
+    let result = display.textContent;
+    return Number(result);
+}
+
+function resetDisplay(display) {
+    display.textContent = '';
+}
 
 for (let i  = 0; i <= 9 ; i++) {
     let button = document.getElementById(i);
     button.addEventListener("click", ()=> {
-        display.textContent += i;
-        if(firstNumber == undefined)
-            firstNumber = i;
-        else if(nextNumber == undefined)
-            nextNumber = i;
-        else{
-            nextNumber = i;
+        if(isOperatorClicked){
+            resetDisplay(display);
+            isOperatorClicked = false;
         }
+        display.textContent += i;
+
     })
 }
 
@@ -64,8 +71,14 @@ dot.addEventListener("click",(e) => {
 })  
 
 plus.addEventListener("click",(e) => {
+    if(firstNumber == undefined)
+    {
+        firstNumber = getNumberFromDisplay(display);
+    }
     display.textContent += ' ' +e.target.textContent +' '
     operator = "+";
+    isOperatorClicked = true;
+
 });
 minus.addEventListener("click",(e) => {
     display.textContent += ' ' +e.target.textContent +' '
@@ -82,11 +95,8 @@ multipl.addEventListener("click",(e) => {
 
 
 equal.addEventListener("click",() =>{
-    if (operator != undefined && firstNumber != undefined
-        && nextNumber != undefined)
-        {
+        nextNumber = getNumberFromDisplay(display);
         firstNumber = operation(operator,firstNumber,nextNumber);
-        display.textContent = firstNumber;
-        nextNumber = undefined;
-    }
-    })
+        display.textContent = firstNumber;  
+        nextNumber = undefined;      
+})
