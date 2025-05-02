@@ -71,7 +71,7 @@ dot.addEventListener("click",(e) => {
 })  
 
 plus.addEventListener("click",(e) => {
-    if(firstNumber == undefined)
+    if(firstNumber === undefined)
     {
         firstNumber = getNumberFromDisplay(display);
     }
@@ -81,16 +81,31 @@ plus.addEventListener("click",(e) => {
 
 });
 minus.addEventListener("click",(e) => {
+    if(firstNumber === undefined)
+        {
+            firstNumber = getNumberFromDisplay(display);
+        }
     display.textContent += ' ' +e.target.textContent +' '
     operator = "-";
+    isOperatorClicked = true;
 });
 div.addEventListener("click",(e) => {
+    if(firstNumber === undefined)
+        {
+            firstNumber = getNumberFromDisplay(display);
+        }
     display.textContent += ' ' +e.target.textContent +' '
     operator = "/";
+    isOperatorClicked = true;
 });
 multipl.addEventListener("click",(e) => {
+    if(firstNumber === undefined)
+        {
+            firstNumber = getNumberFromDisplay(display);
+        }
     display.textContent += ' ' +e.target.textContent +' '
     operator = "*";
+    isOperatorClicked = true;
 });
 
 
