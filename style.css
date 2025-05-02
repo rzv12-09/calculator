@@ -24,7 +24,7 @@ body {
  min-width: 7.5vw;
 }
 button {
-    padding: 30px;
+    padding: 1vh;
     min-width: 5vw;
     flex-grow: 1;
 }

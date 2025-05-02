@@ -16,9 +16,9 @@ function divide(...numbers){
     return numbers.reduce((result,val) => result / val);
 }
 
-let firstNumber;
-let operator;
-let nextNumber;
+let firstNumber = undefined;
+let operator = undefined;
+let nextNumber = undefined;
 
 function operation(operator,firstNumber,nextNumber) {
     switch (operator){
@@ -41,6 +41,13 @@ for (let i  = 0; i <= 9 ; i++) {
     let button = document.getElementById(i);
     button.addEventListener("click", ()=> {
         display.textContent += i;
+        if(firstNumber == undefined)
+            firstNumber = i;
+        else if(nextNumber == undefined)
+            nextNumber = i;
+        else{
+            nextNumber = i;
+        }
     })
 }
 
@@ -49,7 +56,7 @@ const plus = document.getElementById("+");
 const minus = document.getElementById("-");
 const div = document.getElementById("/");
 const multipl= document.getElementById("*");
-
+const equal = document.getElementById("=");
 
 
 dot.addEventListener("click",(e) => {
@@ -58,13 +65,28 @@ dot.addEventListener("click",(e) => {
 
 plus.addEventListener("click",(e) => {
     display.textContent += ' ' +e.target.textContent +' '
+    operator = "+";
 });
 minus.addEventListener("click",(e) => {
     display.textContent += ' ' +e.target.textContent +' '
+    operator = "-";
 });
 div.addEventListener("click",(e) => {
     display.textContent += ' ' +e.target.textContent +' '
+    operator = "/";
 });
 multipl.addEventListener("click",(e) => {
     display.textContent += ' ' +e.target.textContent +' '
+    operator = "*";
 });
+
+
+equal.addEventListener("click",() =>{
+    if (operator != undefined && firstNumber != undefined
+        && nextNumber != undefined)
+        {
+        firstNumber = operation(operator,firstNumber,nextNumber);
+        display.textContent = firstNumber;
+        nextNumber = undefined;
+    }
+    })
