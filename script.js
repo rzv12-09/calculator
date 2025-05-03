@@ -1,4 +1,10 @@
 const display = document.querySelector("#values");
+const dot = document.getElementById(".");
+const plus = document.getElementById("+");
+const minus = document.getElementById("-");
+const div = document.getElementById("/");
+const multipl= document.getElementById("*");
+const equal = document.getElementById("=");
 
 function add(...numbers) {
     return numbers.reduce((total,val) => total+val,0);
@@ -58,26 +64,35 @@ for (let i  = 0; i <= 9 ; i++) {
     })
 }
 
-const dot = document.getElementById(".");
-const plus = document.getElementById("+");
-const minus = document.getElementById("-");
-const div = document.getElementById("/");
-const multipl= document.getElementById("*");
-const equal = document.getElementById("=");
-
 
 dot.addEventListener("click",(e) => {
     display.textContent += e.target.textContent;
 })  
 
+
+let isEqualClicked = false;
+
 plus.addEventListener("click",(e) => {
+    
+    if(nextNumber === undefined && firstNumber !== undefined && !isEqualClicked){
+        nextNumber = getNumberFromDisplay(display);
+        firstNumber = operation(operator,firstNumber,nextNumber);
+        display.textContent = firstNumber + " +";
+        nextNumber = undefined;
+        isOperatorClicked = true;
+        
+        return;
+    }
     if(firstNumber === undefined)
     {
         firstNumber = getNumberFromDisplay(display);
+        
     }
     display.textContent += ' ' +e.target.textContent +' '
     operator = "+";
     isOperatorClicked = true;
+    isEqualClicked = false;
+    
 
 });
 minus.addEventListener("click",(e) => {
@@ -110,8 +125,12 @@ multipl.addEventListener("click",(e) => {
 
 
 equal.addEventListener("click",() =>{
+    if(!isEqualClicked){
         nextNumber = getNumberFromDisplay(display);
         firstNumber = operation(operator,firstNumber,nextNumber);
         display.textContent = firstNumber;  
-        nextNumber = undefined;      
+        nextNumber = undefined;   
+        isOperatorClicked = false;  
+        isEqualClicked = true;
+    }
 })
