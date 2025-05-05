@@ -5,6 +5,7 @@ const minus = document.getElementById("-");
 const div = document.getElementById("/");
 const multipl= document.getElementById("*");
 const equal = document.getElementById("=");
+const allClear = document.getElementById("allclear");
 
 function add(...numbers) {
     return numbers.reduce((total,val) => total+val,0);
@@ -26,6 +27,7 @@ let firstNumber = undefined;
 let operator = undefined;
 let nextNumber = undefined;
 let isOperatorClicked = false;
+let isEqualClicked = false;
 
 function operation(operator,firstNumber,nextNumber) {
     switch (operator){
@@ -70,7 +72,6 @@ dot.addEventListener("click",(e) => {
 })  
 
 
-let isEqualClicked = false;
 
 plus.addEventListener("click",(e) => {
     
@@ -166,4 +167,13 @@ equal.addEventListener("click",() =>{
         isOperatorClicked = false;  
         isEqualClicked = true;
     }
+})
+
+allClear.addEventListener("click",() =>{
+    resetDisplay(display);
+    firstNumber = undefined;
+    operator = undefined;
+    extNumber = undefined;
+    isOperatorClicked = false;
+    isEqualClicked = false;
 })
