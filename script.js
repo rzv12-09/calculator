@@ -158,9 +158,9 @@ multipl.addEventListener("click",(e) => {
 
 
 equal.addEventListener("click",() =>{
-    if(!isEqualClicked){
+    if(!isEqualClicked && firstNumber != null){
         nextNumber = getNumberFromDisplay(display);
-        firstNumber = operation(operator,firstNumber,nextNumber);
+        firstNumber = Number((operation(operator,firstNumber,nextNumber)).toFixed(6));
         display.textContent = firstNumber;  
         nextNumber = undefined;   
         isOperatorClicked = false;  
