@@ -80,7 +80,7 @@ plus.addEventListener("click",(e) => {
         display.textContent = firstNumber + " +";
         nextNumber = undefined;
         isOperatorClicked = true;
-        
+        operator = "+"; 
         return;
     }
     if(firstNumber === undefined)
@@ -96,6 +96,15 @@ plus.addEventListener("click",(e) => {
 
 });
 minus.addEventListener("click",(e) => {
+    if(nextNumber === undefined && firstNumber !== undefined && !isEqualClicked){
+        nextNumber = getNumberFromDisplay(display);
+        firstNumber = operation(operator,firstNumber,nextNumber);
+        display.textContent = firstNumber + " -";
+        nextNumber = undefined;
+        isOperatorClicked = true; 
+        operator = "-";
+        return;
+    }
     if(firstNumber === undefined)
         {
             firstNumber = getNumberFromDisplay(display);
@@ -103,8 +112,19 @@ minus.addEventListener("click",(e) => {
     display.textContent += ' ' +e.target.textContent +' '
     operator = "-";
     isOperatorClicked = true;
+    isEqualClicked = false;
+
 });
 div.addEventListener("click",(e) => {
+    if(nextNumber === undefined && firstNumber !== undefined && !isEqualClicked){
+        nextNumber = getNumberFromDisplay(display);
+        firstNumber = operation(operator,firstNumber,nextNumber);
+        display.textContent = firstNumber + " /";
+        nextNumber = undefined;
+        isOperatorClicked = true; 
+        operator = "/";
+        return;
+    }
     if(firstNumber === undefined)
         {
             firstNumber = getNumberFromDisplay(display);
@@ -112,8 +132,19 @@ div.addEventListener("click",(e) => {
     display.textContent += ' ' +e.target.textContent +' '
     operator = "/";
     isOperatorClicked = true;
+    isEqualClicked = false;
+
 });
 multipl.addEventListener("click",(e) => {
+    if(nextNumber === undefined && firstNumber !== undefined && !isEqualClicked){
+        nextNumber = getNumberFromDisplay(display);
+        firstNumber = operation(operator,firstNumber,nextNumber);
+        display.textContent = firstNumber + " *";
+        nextNumber = undefined;
+        isOperatorClicked = true; 
+        operator = "*";
+        return;
+    }
     if(firstNumber === undefined)
         {
             firstNumber = getNumberFromDisplay(display);
@@ -121,6 +152,8 @@ multipl.addEventListener("click",(e) => {
     display.textContent += ' ' +e.target.textContent +' '
     operator = "*";
     isOperatorClicked = true;
+    isEqualClicked = false;
+
 });
 
 
