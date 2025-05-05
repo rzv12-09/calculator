@@ -77,7 +77,7 @@ plus.addEventListener("click",(e) => {
     
     if(nextNumber === undefined && firstNumber !== undefined && !isEqualClicked){
         nextNumber = getNumberFromDisplay(display);
-        firstNumber = operation(operator,firstNumber,nextNumber);
+        firstNumber = Number((operation(operator,firstNumber,nextNumber)).toFixed(6));
         display.textContent = firstNumber + " +";
         nextNumber = undefined;
         isOperatorClicked = true;
@@ -99,7 +99,7 @@ plus.addEventListener("click",(e) => {
 minus.addEventListener("click",(e) => {
     if(nextNumber === undefined && firstNumber !== undefined && !isEqualClicked){
         nextNumber = getNumberFromDisplay(display);
-        firstNumber = operation(operator,firstNumber,nextNumber);
+        firstNumber = Number((operation(operator,firstNumber,nextNumber)).toFixed(6));
         display.textContent = firstNumber + " -";
         nextNumber = undefined;
         isOperatorClicked = true; 
@@ -119,7 +119,7 @@ minus.addEventListener("click",(e) => {
 div.addEventListener("click",(e) => {
     if(nextNumber === undefined && firstNumber !== undefined && !isEqualClicked){
         nextNumber = getNumberFromDisplay(display);
-        firstNumber = operation(operator,firstNumber,nextNumber);
+        firstNumber = Number((operation(operator,firstNumber,nextNumber)).toFixed(6));
         display.textContent = firstNumber + " /";
         nextNumber = undefined;
         isOperatorClicked = true; 
@@ -139,7 +139,7 @@ div.addEventListener("click",(e) => {
 multipl.addEventListener("click",(e) => {
     if(nextNumber === undefined && firstNumber !== undefined && !isEqualClicked){
         nextNumber = getNumberFromDisplay(display);
-        firstNumber = operation(operator,firstNumber,nextNumber);
+        firstNumber = Number((operation(operator,firstNumber,nextNumber)).toFixed(6));
         display.textContent = firstNumber + " *";
         nextNumber = undefined;
         isOperatorClicked = true; 
