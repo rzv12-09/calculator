@@ -57,6 +57,10 @@ function resetDisplay(display) {
 for (let i  = 0; i <= 9 ; i++) {
     let button = document.getElementById(i);
     button.addEventListener("click", ()=> {
+        if(isTungTung) {
+            resetDisplay(display);
+            isTungTung = false;
+        }
         if(isOperatorClicked){
             resetDisplay(display);
             isOperatorClicked = false;
@@ -120,6 +124,12 @@ div.addEventListener("click",(e) => {
     if(nextNumber === undefined && firstNumber !== undefined && !isEqualClicked){
         nextNumber = getNumberFromDisplay(display);
         firstNumber = Number((operation(operator,firstNumber,nextNumber)).toFixed(6));
+        if(firstNumber === Infinity){
+            display.textContent = "Tung tung tung Sahur";
+            isTungTung = true;
+            resetValues();
+            return;
+        }
         display.textContent = firstNumber + " /";
         nextNumber = undefined;
         isOperatorClicked = true; 
@@ -157,11 +167,18 @@ multipl.addEventListener("click",(e) => {
 
 });
 
+let isTungTung = false;
 
 equal.addEventListener("click",() =>{
     if(!isEqualClicked && firstNumber != null && isOperatorClicked == false){
         nextNumber = getNumberFromDisplay(display);
         firstNumber = Number((operation(operator,firstNumber,nextNumber)).toFixed(6));
+        if(firstNumber === Infinity){
+            display.textContent = "Tung tung tung Sahur";
+            isTungTung = true;
+            resetValues();
+            return;
+        }
         display.textContent = firstNumber;  
         nextNumber = undefined;   
         isOperatorClicked = false;  
@@ -169,11 +186,15 @@ equal.addEventListener("click",() =>{
     }
 })
 
-allClear.addEventListener("click",() =>{
-    resetDisplay(display);
+function resetValues() {
     firstNumber = undefined;
     operator = undefined;
-    extNumber = undefined;
+    nextNumber = undefined;
     isOperatorClicked = false;
     isEqualClicked = false;
+}
+
+allClear.addEventListener("click",() =>{
+    resetDisplay(display);
+    resetValues();
 })
