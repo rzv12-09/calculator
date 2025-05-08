@@ -29,6 +29,16 @@ let nextNumber = undefined;
 let isOperatorClicked = false;
 let isEqualClicked = false;
 
+
+function resetValues() {
+    firstNumber = undefined;
+    operator = undefined;
+    nextNumber = undefined;
+    isOperatorClicked = false;
+    isEqualClicked = false;
+}
+
+
 function operation(operator,firstNumber,nextNumber) {
     switch (operator){
         case '+':
@@ -57,6 +67,11 @@ function resetDisplay(display) {
 for (let i  = 0; i <= 9 ; i++) {
     let button = document.getElementById(i);
     button.addEventListener("click", ()=> {
+        if(isReadyToReset) {
+            isReadyToReset = false;
+            resetValues();
+            resetDisplay(display);
+        }
         if(isTungTung) {
             resetDisplay(display);
             isTungTung = false;
@@ -78,7 +93,11 @@ dot.addEventListener("click",(e) => {
 
 
 plus.addEventListener("click",(e) => {
-    
+   if(isOperatorClicked) {
+    display.textContent = "" + firstNumber + " +"
+    operator = "+";
+    return;
+   }
     if(nextNumber === undefined && firstNumber !== undefined && !isEqualClicked){
         nextNumber = getNumberFromDisplay(display);
         firstNumber = Number((operation(operator,firstNumber,nextNumber)).toFixed(6));
@@ -97,10 +116,16 @@ plus.addEventListener("click",(e) => {
     operator = "+";
     isOperatorClicked = true;
     isEqualClicked = false;
+    isReadyToReset = false;
     
 
 });
 minus.addEventListener("click",(e) => {
+    if(isOperatorClicked) {
+        display.textContent = "" + firstNumber + " -"
+        operator = "-";
+        return;
+       }
     if(nextNumber === undefined && firstNumber !== undefined && !isEqualClicked){
         nextNumber = getNumberFromDisplay(display);
         firstNumber = Number((operation(operator,firstNumber,nextNumber)).toFixed(6));
@@ -118,9 +143,14 @@ minus.addEventListener("click",(e) => {
     operator = "-";
     isOperatorClicked = true;
     isEqualClicked = false;
-
+    isReadyToReset = false;
 });
 div.addEventListener("click",(e) => {
+    if(isOperatorClicked) {
+        display.textContent = "" + firstNumber + " /"
+        operator = "/";
+        return;
+       }
     if(nextNumber === undefined && firstNumber !== undefined && !isEqualClicked){
         nextNumber = getNumberFromDisplay(display);
         firstNumber = Number((operation(operator,firstNumber,nextNumber)).toFixed(6));
@@ -144,9 +174,15 @@ div.addEventListener("click",(e) => {
     operator = "/";
     isOperatorClicked = true;
     isEqualClicked = false;
-
+    isReadyToReset = false;
+    
 });
 multipl.addEventListener("click",(e) => {
+    if(isOperatorClicked) {
+        display.textContent = "" + firstNumber + " *"
+        operator = "*";
+        return;
+       }
     if(nextNumber === undefined && firstNumber !== undefined && !isEqualClicked){
         nextNumber = getNumberFromDisplay(display);
         firstNumber = Number((operation(operator,firstNumber,nextNumber)).toFixed(6));
@@ -164,16 +200,18 @@ multipl.addEventListener("click",(e) => {
     operator = "*";
     isOperatorClicked = true;
     isEqualClicked = false;
+    isReadyToReset = false;
 
 });
 
 let isTungTung = false;
+let isReadyToReset = false;
 
 equal.addEventListener("click",() =>{
     if(!isEqualClicked && firstNumber != null && isOperatorClicked == false){
         nextNumber = getNumberFromDisplay(display);
         firstNumber = Number((operation(operator,firstNumber,nextNumber)).toFixed(6));
-        if(firstNumber === Infinity){
+        if(firstNumber === Infinity || firstNumber === -Infinity){
             display.textContent = "Tung tung tung Sahur";
             isTungTung = true;
             resetValues();
@@ -183,16 +221,11 @@ equal.addEventListener("click",() =>{
         nextNumber = undefined;   
         isOperatorClicked = false;  
         isEqualClicked = true;
+        isReadyToReset = true;
     }
 })
 
-function resetValues() {
-    firstNumber = undefined;
-    operator = undefined;
-    nextNumber = undefined;
-    isOperatorClicked = false;
-    isEqualClicked = false;
-}
+
 
 allClear.addEventListener("click",() =>{
     resetDisplay(display);
