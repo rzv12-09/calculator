@@ -6,6 +6,16 @@ const div = document.getElementById("/");
 const multipl= document.getElementById("*");
 const equal = document.getElementById("=");
 const allClear = document.getElementById("allclear");
+const clear = document.getElementById("clear");
+
+let firstNumber = undefined;
+let operator = undefined;
+let nextNumber = undefined;
+let isOperatorClicked = false;
+let isEqualClicked = false;
+let isTungTung = false;
+let isReadyToReset = false;
+let isDotPressed = false;
 
 function add(...numbers) {
     return numbers.reduce((total,val) => total+val,0);
@@ -23,14 +33,6 @@ function divide(...numbers){
     return numbers.reduce((result,val) => result / val);
 }
 
-let firstNumber = undefined;
-let operator = undefined;
-let nextNumber = undefined;
-let isOperatorClicked = false;
-let isEqualClicked = false;
-let isTungTung = false;
-let isReadyToReset = false;
-let isDotPressed = false;
 
 function resetValues() {
     firstNumber = undefined;
@@ -40,7 +42,6 @@ function resetValues() {
     isEqualClicked = false;
     isDotPressed = false;
 }
-
 
 function operation(operator,firstNumber,nextNumber) {
     switch (operator){
@@ -90,15 +91,12 @@ for (let i  = 0; i <= 9 ; i++) {
     })
 }
 
-
 dot.addEventListener("click",(e) => {
     if(!isDotPressed){
         display.textContent += e.target.textContent;
         isDotPressed = true;
     }
 })  
-
-
 
 plus.addEventListener("click",(e) => {
    if(isOperatorClicked) {
@@ -128,6 +126,7 @@ plus.addEventListener("click",(e) => {
     
 
 });
+
 minus.addEventListener("click",(e) => {
     if(isOperatorClicked) {
         display.textContent = "" + firstNumber + " -"
@@ -153,6 +152,7 @@ minus.addEventListener("click",(e) => {
     isEqualClicked = false;
     isReadyToReset = false;
 });
+
 div.addEventListener("click",(e) => {
     if(isOperatorClicked) {
         display.textContent = "" + firstNumber + " /"
@@ -185,6 +185,7 @@ div.addEventListener("click",(e) => {
     isReadyToReset = false;
     
 });
+
 multipl.addEventListener("click",(e) => {
     if(isOperatorClicked) {
         display.textContent = "" + firstNumber + " *"
@@ -212,7 +213,6 @@ multipl.addEventListener("click",(e) => {
 
 });
 
-
 equal.addEventListener("click",() =>{
     if(!isEqualClicked && firstNumber != null && isOperatorClicked == false){
         nextNumber = getNumberFromDisplay(display);
@@ -231,9 +231,26 @@ equal.addEventListener("click",() =>{
     }
 })
 
-
-
 allClear.addEventListener("click",() =>{
     resetDisplay(display);
     resetValues();
+})
+
+clear.addEventListener("click",() => {
+    if(isEqualClicked)
+        return;
+    let string;
+    if(isOperatorClicked){
+        string = display.textContent.trim().split("");
+        string.pop();
+        isOperatorClicked = false;
+        firstNumber = undefined;
+        display.textContent = string.join("");
+        return;
+    }
+    string = display.textContent.split("");
+    if(string.pop() === "."){
+        isDotPressed = false;
+    }
+    display.textContent =string.join(""); 
 })
