@@ -28,7 +28,9 @@ let operator = undefined;
 let nextNumber = undefined;
 let isOperatorClicked = false;
 let isEqualClicked = false;
-
+let isTungTung = false;
+let isReadyToReset = false;
+let isDotPressed = false;
 
 function resetValues() {
     firstNumber = undefined;
@@ -36,6 +38,7 @@ function resetValues() {
     nextNumber = undefined;
     isOperatorClicked = false;
     isEqualClicked = false;
+    isDotPressed = false;
 }
 
 
@@ -75,10 +78,12 @@ for (let i  = 0; i <= 9 ; i++) {
         if(isTungTung) {
             resetDisplay(display);
             isTungTung = false;
+            isDotPressed = false;
         }
         if(isOperatorClicked){
             resetDisplay(display);
             isOperatorClicked = false;
+            isDotPressed = false;
         }
         display.textContent += i;
 
@@ -87,7 +92,10 @@ for (let i  = 0; i <= 9 ; i++) {
 
 
 dot.addEventListener("click",(e) => {
-    display.textContent += e.target.textContent;
+    if(!isDotPressed){
+        display.textContent += e.target.textContent;
+        isDotPressed = true;
+    }
 })  
 
 
@@ -204,15 +212,13 @@ multipl.addEventListener("click",(e) => {
 
 });
 
-let isTungTung = false;
-let isReadyToReset = false;
 
 equal.addEventListener("click",() =>{
     if(!isEqualClicked && firstNumber != null && isOperatorClicked == false){
         nextNumber = getNumberFromDisplay(display);
         firstNumber = Number((operation(operator,firstNumber,nextNumber)).toFixed(6));
         if(firstNumber === Infinity || firstNumber === -Infinity){
-            display.textContent = "Tung tung tung Sahur";
+            display.textContent = "You think you are smart?";
             isTungTung = true;
             resetValues();
             return;
