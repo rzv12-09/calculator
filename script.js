@@ -254,3 +254,28 @@ clear.addEventListener("click",() => {
     }
     display.textContent =string.join(""); 
 })
+
+document.addEventListener("keydown",(e) => {
+    const key = e.key;
+    if(!isNaN(key)){
+        document.getElementById(key).click();
+    }
+    if(["+","-","*","/"].includes(key)){
+        document.getElementById(key).click();
+    }
+    if(key === "Enter" || key === "=") {
+        equal.click();
+    }
+    if(key.toLowerCase() === "c")  {
+       allClear.click();
+    }
+    if(key === "Enter" || key === "=") {
+        equal.click();
+    }
+    if(key === "Backspace") {
+        clear.click();
+    }
+    if (key === ".") {
+        dot.click();
+    }
+})
